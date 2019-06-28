@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
+    Rigidbody rigidBody;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        // give us access to rigid body of Rocket Ship
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -19,19 +22,19 @@ public class Rocket : MonoBehaviour
     private void ProcessInput()
     {
         //can always press space, but only a or d
-        
+
         if (Input.GetKey(KeyCode.Space))
         {
-            print("Space pressed.");
+            rigidBody.AddRelativeForce(Vector3.up);
         }
         
         if (Input.GetKey(KeyCode.A))
         {
-            print("A Pressed, Rotate left.");
+            transform.Rotate(Vector3.forward);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            print("D Pressed, Rotate right.");
+            transform.Rotate(-Vector3.forward);
         }
     }
 
