@@ -24,26 +24,14 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessInput();
+        Thrust();
+        Rotate();
     }
 
-    private void ProcessInput()
+    private void Rotate()
     {
-        //can always press space, but only a or d
+        rigidBody.freezeRotation = true; // take control of rotation, fix rotation bug
 
-        if (Input.GetKey(KeyCode.Space))
-        {
-            rigidBody.AddRelativeForce(Vector3.up);
-            if (!rocketThrust.isPlaying)  // bang signifys is NOT, stops from trying to play repeatedly
-            {
-                rocketThrust.Play();
-            }
-        }
-        else 
-        {
-            rocketThrust.Stop();
-        }
-        
         if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(Vector3.forward);
@@ -52,6 +40,22 @@ public class Rocket : MonoBehaviour
         {
             transform.Rotate(-Vector3.forward);
         }
+        rigidBody.freezeRotation = false; // resume 
     }
 
+    private void Thrust()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            rigidBody.AddRelativeForce(Vector3.up);
+            if (!rocketThrust.isPlaying)  // bang signifys is NOT, stops from trying to play repeatedly
+            {
+                rocketThrust.Play();
+            }
+        }
+        else
+        {
+            rocketThrust.Stop();
+        }
+    }
 }
