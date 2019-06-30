@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3385866296306843612
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6501389530767166827, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_Name
+      value: Landing Pad
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073164, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_Name
+      value: Obstacle (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -20.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.1541624
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.7724
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073160, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 13.654058
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576085412370073166, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac0ea369b65bfe14ab26abc3c3ca6718, type: 2}
+    - target: {fileID: 7704546076091544111, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704546076091544111, guid: cfd2cbbbb65841a43ab95b0f821d5b49,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 34.7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cfd2cbbbb65841a43ab95b0f821d5b49, type: 3}
