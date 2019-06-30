@@ -31,6 +31,18 @@ public class Rocket : MonoBehaviour
         Rotate();
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("Friendly collision");
+                break;
+            default:
+                print("DEAD");
+                break;
+        }
+    }
     private void Rotate()
     {
         rigidBody.freezeRotation = true; // take control of rotation, fix rotation bug
@@ -52,7 +64,7 @@ public class Rocket : MonoBehaviour
     private void Thrust()
     {
         float thrustThisFrame = mainThrust * Time.deltaTime;
-
+        
         if (Input.GetKey(KeyCode.Space))
         {
             rigidBody.AddRelativeForce(Vector3.up * thrustThisFrame);
