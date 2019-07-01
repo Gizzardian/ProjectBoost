@@ -1,11 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
     [SerializeField] float rcsThrust = 300f;
     [SerializeField] float mainThrust = 150f;
+
+    enum State {Alive, Dying, Transcending}
+    State state = State.Alive;
 
     // set physics
     Rigidbody rigidBody;
@@ -27,22 +29,51 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Thrust();
-        Rotate();
+        if (state == State.Alive)
+        {
+            Thrust();
+            Rotate();
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        if (state != State.Alive)
+        {
+            return;
+        }
+        
         switch (collision.gameObject.tag)
         {
             case "Friendly":
                 print("Friendly collision");
                 break;
+            case "Finish":
+                print("FINISH.");
+                state = State.Transcending;
+                Invoke("LoadLevel", 1f);
+                break;
             default:
                 print("DEAD");
+                state = State.Dying;
+                Invoke("LoadLevel", 1f);
                 break;
         }
     }
+
+    private void LoadLevel()
+    {
+        if (state == State.Transcending)
+        {
+            SceneManager.LoadScene(1);
+        }
+        else if (state == State.Dying)
+        {
+            SceneManager.LoadScene(0);
+        }
+            
+    }
+
     private void Rotate()
     {
         rigidBody.freezeRotation = true; // take control of rotation, fix rotation bug
