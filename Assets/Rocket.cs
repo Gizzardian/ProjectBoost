@@ -6,6 +6,11 @@ public class Rocket : MonoBehaviour
     [SerializeField] float rcsThrust = 300f;
     [SerializeField] float mainThrust = 150f;
 
+    [SerializeField] AudioClip mainEngine;
+    [SerializeField] AudioClip deathSound;
+    [SerializeField] AudioClip trancendingSound;
+
+
     enum State {Alive, Dying, Transcending}
     State state = State.Alive;
 
@@ -13,7 +18,7 @@ public class Rocket : MonoBehaviour
     Rigidbody rigidBody;
 
     // set sound
-    AudioSource rocketThrust;
+    AudioSource audioSource;
     bool playThurst;
 
     // Start is called before the first frame update
@@ -23,7 +28,7 @@ public class Rocket : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
 
         // get access to sound
-        rocketThrust = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -31,8 +36,8 @@ public class Rocket : MonoBehaviour
     {
         if (state == State.Alive)
         {
-            Thrust();
-            Rotate();
+            RespondToThrustInput();
+            RespondToRotateInput();
         }
     }
 
@@ -49,16 +54,28 @@ public class Rocket : MonoBehaviour
                 print("Friendly collision");
                 break;
             case "Finish":
-                print("FINISH.");
-                state = State.Transcending;
-                Invoke("LoadLevel", 1f);
+                StartSuccessSequence();
                 break;
             default:
-                print("DEAD");
-                state = State.Dying;
-                Invoke("LoadLevel", 1f);
+                StartDeathSequence();
                 break;
         }
+    }
+
+    private void StartDeathSequence()
+    {
+        state = State.Dying;
+        audioSource.Stop();
+        audioSource.PlayOneShot(deathSound);
+        Invoke("LoadLevel", 1f);
+    }
+
+    private void StartSuccessSequence()
+    {
+        state = State.Transcending;
+        audioSource.Stop();
+        audioSource.PlayOneShot(trancendingSound);
+        Invoke("LoadLevel", 1f);
     }
 
     private void LoadLevel()
@@ -74,7 +91,7 @@ public class Rocket : MonoBehaviour
             
     }
 
-    private void Rotate()
+    private void RespondToRotateInput()
     {
         rigidBody.freezeRotation = true; // take control of rotation, fix rotation bug
         
@@ -92,21 +109,26 @@ public class Rocket : MonoBehaviour
         rigidBody.freezeRotation = false; // resume 
     }
 
-    private void Thrust()
+    private void RespondToThrustInput()
     {
         float thrustThisFrame = mainThrust * Time.deltaTime;
         
         if (Input.GetKey(KeyCode.Space))
         {
-            rigidBody.AddRelativeForce(Vector3.up * thrustThisFrame);
-            if (!rocketThrust.isPlaying)  // bang signifys is NOT, stops from trying to play repeatedly
-            {
-                rocketThrust.Play();
-            }
+            ApplyThrust(thrustThisFrame);
         }
         else
         {
-            rocketThrust.Stop();
+            audioSource.Stop();
+        }
+    }
+
+    private void ApplyThrust(float thrustThisFrame)
+    {
+        rigidBody.AddRelativeForce(Vector3.up * thrustThisFrame);
+        if (!audioSource.isPlaying)  // bang signifys is NOT, stops from trying to play repeatedly
+        {
+            audioSource.PlayOneShot(mainEngine);
         }
     }
 }
