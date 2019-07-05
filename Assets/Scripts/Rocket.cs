@@ -15,7 +15,6 @@ public class Rocket : MonoBehaviour
     [SerializeField] ParticleSystem deathPart;
     [SerializeField] ParticleSystem successPart;
 
-
     enum State {Alive, Dying, Transcending}
     State state = State.Alive;
 
@@ -25,6 +24,12 @@ public class Rocket : MonoBehaviour
     // set sound
     AudioSource audioSource;
     bool playThurst;
+
+    // get scene index
+    //int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+    
+    // set collision toggle
+    [SerializeField] bool collisionToggle = true;
 
     // Start is called before the first frame update
     void Start()
@@ -39,32 +44,53 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (state == State.Alive)
         {
             RespondToThrustInput();
             RespondToRotateInput();
+            
+        }
+
+        if (Debug.isDebugBuild) // on allow if in dev mode, not prod, in build settings. 
+        {
+            RespondToDebugInput();
+        }
+        
+    }
+
+    private void RespondToDebugInput()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SceneManager.LoadScene(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionToggle = !collisionToggle;  // toggle boolean
         }
     }
 
+
     void OnCollisionEnter(Collision collision)
-    {
-        if (state != State.Alive)
-        {
-            return;
-        }
-        
-        switch (collision.gameObject.tag)
-        {
-            case "Friendly":
-                print("Friendly collision");
-                break;
-            case "Finish":
-                StartSuccessSequence();
-                break;
-            default:
-                StartDeathSequence();
-                break;
-        }
+    {  
+            if (state != State.Alive || !collisionToggle)
+            {
+                return;
+            }
+
+            switch (collision.gameObject.tag)
+            {
+                case "Friendly":
+                    print("Friendly collision");
+                    break;
+                case "Finish":
+                    StartSuccessSequence();
+                    break;
+                default:
+                    StartDeathSequence();
+                    break;
+            }
     }
 
     private void StartDeathSequence()
@@ -94,8 +120,7 @@ public class Rocket : MonoBehaviour
         else if (state == State.Dying)
         {
             SceneManager.LoadScene(0);
-        }
-            
+        }     
     }
 
     private void RespondToRotateInput()
