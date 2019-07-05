@@ -24,9 +24,6 @@ public class Rocket : MonoBehaviour
     // set sound
     AudioSource audioSource;
     bool playThurst;
-
-    // get scene index
-    //int sceneIndex = SceneManager.GetActiveScene().buildIndex;
     
     // set collision toggle
     [SerializeField] bool collisionToggle = true;
@@ -44,33 +41,32 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (state == State.Alive)
         {
             RespondToThrustInput();
-            RespondToRotateInput();
-            
+            RespondToRotateInput();  
         }
 
         if (Debug.isDebugBuild) // on allow if in dev mode, not prod, in build settings. 
         {
             RespondToDebugInput();
-        }
-        
+        }   
     }
 
     private void RespondToDebugInput()
     {
+
+        int nextSceneIndex = GetNextScene();
+
         if (Input.GetKeyDown(KeyCode.L))
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(nextSceneIndex);
         }
         else if (Input.GetKeyDown(KeyCode.C))
         {
             collisionToggle = !collisionToggle;  // toggle boolean
         }
     }
-
 
     void OnCollisionEnter(Collision collision)
     {  
@@ -113,14 +109,35 @@ public class Rocket : MonoBehaviour
 
     private void LoadLevel()
     {
+        int nextSceneIndex = GetNextScene();
+
         if (state == State.Transcending)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(nextSceneIndex);
         }
         else if (state == State.Dying)
         {
             SceneManager.LoadScene(0);
-        }     
+        }
+    }
+
+    private static int GetNextScene()
+    {
+        // get scene index
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex;
+        int topSceneIndex = SceneManager.sceneCountInBuildSettings - 1;
+
+        if (sceneIndex == topSceneIndex)
+        {
+            nextSceneIndex = 0;
+        }
+        else
+        {
+            nextSceneIndex = sceneIndex + 1;
+        }
+
+        return nextSceneIndex;
     }
 
     private void RespondToRotateInput()
