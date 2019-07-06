@@ -142,20 +142,23 @@ public class Rocket : MonoBehaviour
 
     private void RespondToRotateInput()
     {
-        rigidBody.freezeRotation = true; // take control of rotation, fix rotation bug
+        
         
         float rotationThisFrame = rcsThrust * Time.deltaTime;
 
         if (Input.GetKey(KeyCode.A))
         {
-            
+            rigidBody.freezeRotation = true; // take control of rotation, fix rotation bug
             transform.Rotate(Vector3.forward * rotationThisFrame);
+            rigidBody.freezeRotation = false; // resume 
         }
         else if (Input.GetKey(KeyCode.D))
         {
+            rigidBody.freezeRotation = true; // take control of rotation, fix rotation bug
             transform.Rotate(-Vector3.forward * rotationThisFrame);
+            rigidBody.freezeRotation = false; // resume 
         }
-        rigidBody.freezeRotation = false; // resume 
+        
     }
 
     private void RespondToThrustInput()
